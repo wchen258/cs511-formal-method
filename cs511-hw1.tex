@@ -1,0 +1,103 @@
+%% to produce a PDF copy, issue the following command:
+%%
+%%     pdflatex propositional-logic-examples.tex
+%%
+%% in the same directory containing the LaTeX style files:
+%%
+%%     prooftree.sty  and  boxproof.sty
+
+\documentclass[11pt,leqno,fleqn]{article}
+
+\usepackage{graphicx} 
+\usepackage{times}              % better fonts for mathematical symbols
+\usepackage{bm}                 % unlike \boldmath,
+                                % \bm can be used anywhere within math mode
+\usepackage[scaled=0.9]{helvet} % makes text a little smaller throughout,
+                                % but not the text in math mode.
+\usepackage{prooftree}
+\usepackage{boxproof}
+
+\setlength\hoffset{-5pt}      % horizontal offset, to move text horizontally
+\setlength{\textwidth}{4.5in} % try different widths
+\setlength\voffset{-5pt}      % vertical offset, to move text vertically
+\setlength{\textheight}{7in}  % try different heights
+
+\newcommand{\Hide}[1]{}             % use \Hide{bla bla} to hide ``bla bla''
+\newcommand{\code}[1]{\texttt{#1}}  % use \code{...} to produce ASCII chars
+\newcommand{\Intro}[1]{{#1}{\textrm{i}}}
+\newcommand{\Elim}[1]{{#1}{\textrm{e}}}
+
+\title{CS511 HW1}
+\author{Weifan Chen} 
+\date{} % omit date
+
+\begin{document}
+
+\maketitle
+
+\section{Coding Link}
+
+
+
+\section{Exercise 1.1.2 (a)(b)(c)}
+(a) $ ((\neg p)\land q) \rightarrow r$\\
+(b) $ (p\rightarrow q) \land \neg ( (r\lor p) \rightarrow q) $\\
+(c) $ (p\rightarrow q) \rightarrow (r \rightarrow (s \lor t))$\\
+
+\section{Exercise 1.2.2. (a): $\neg p \to \neg q \vdash q \to p$}
+
+\begin{proofbox}
+\label{a1}\: \neg p \to \neg q \=\textrm{premise}\\
+\[
+	\label{a2}\: q \=\textrm{assumption}\\
+	\label{a3}\: \neg\neg q \= \neg\neg \textrm{i}\ \ref{a2}\\
+	\label{a4}\: \neg\neg p \= \textrm{MT \ref{a1},\ref{a3}}\\
+	\label{a5}\: p \= \neg\neg e \ \ref{a4}\\
+\]
+\: q \to p \= \to i,\ref{a2},\ref{a5}
+\end{proofbox}
+
+
+\section{Exercise 1.2.2. (b): $ \neg p \lor \neg q \vdash \neg (p \land q)$}
+
+\begin{proofbox}
+\label{1}\: \neg p \lor \neg q \= \textrm{premise}\\
+\[
+	\label{2}\: \neg p \= \textrm{assumption} \\
+	\[
+		\label{3}\: p \land q \= \textrm{assumption}\\
+		\label{4}\: p \= \Elim{\land}_1 \ \ref{3} \\
+		\label{5}\: \bot \= \Intro{\bot}\ \ref{2}, \ref{4}\\
+	\]
+	\label{6}\: \neg (p\land q) \= \Intro{\neg}\ \ref{3} \textrm{-} \ref{5}\\
+\]
+\[
+	\label{7}\: \neg q \= \textrm{assumption} \\
+	\[
+		\label{8}\: p \land q \= \textrm{assumption}\\
+		\label{9}\: q \= \Elim{\land}_2 \ \ref{8} \\
+		\label{10}\: \bot \= \Intro{\bot}\ \ref{7}, \ref{9}\\
+	\]
+	\label{11}\: \neg (p\land q) \= \Intro{\neg}\ \ref{8} \textrm{-} \ref{10}\\
+\]
+\: \neg (p \land q) \= \Elim{\lor}, \ref{1},\ref{2}\textrm{-}\ref{6},\ref{7}\textrm{-}\ref{11}\\
+\end{proofbox}
+
+\section{Exercise 1.2.2. (c) $\neg p , p\lor q \vdash q$}
+
+\begin{proofbox}
+\label{1}\: \neg q \= \textrm{premise}\\
+\label{2}\: p \lor q \= \textrm{premise}\\
+\[
+	\label{3}\: q \= \textrm{assumption}\\
+\]
+\[
+	\label{4}\: p \= \textrm{assumption}\\
+	\label{5}\: \bot \= \Intro{\bot}\ \ref{1}, \ref{4}\\
+	\label{6}\: q \= \Elim{\bot}\ \ref{5}\\
+\]
+\: q \= \Elim{\lor}\ \ref{2},\ref{3},\ref{4}\textrm{-}\ref{6}\\
+\end{proofbox}
+
+\end{document}
+
